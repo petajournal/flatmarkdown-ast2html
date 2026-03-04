@@ -12,6 +12,31 @@ bun add flatmarkdown-ast2html
 npm install flatmarkdown-ast2html
 ```
 
+## Browser / WebView (IIFE)
+
+A minified IIFE build is included for non-module environments (plain `<script>` tags, WebView2, Electron, etc.).
+
+```html
+<script src="https://unpkg.com/flatmarkdown-ast2html@0.1.3"></script>
+<script>
+  var html = FmAst2Html.renderToHtml(astJson);
+  document.getElementById('content').innerHTML = html;
+</script>
+```
+
+The global `FmAst2Html` object exposes `renderToHtml(ast, options?)`.
+
+To pin a specific version, use `@0.1.3` in the URL. Without a version tag, unpkg serves the latest.
+
+## Build
+
+```bash
+npm install
+npm run build   # outputs dist/ with ESM, CJS, IIFE, and .d.tsう
+npm test        # runs vitest
+npm publish     # publish to npm (also available via unpkg)
+```
+
 ## Quick Start
 
 ```ts
@@ -184,14 +209,6 @@ renderToHtml(ast, {
 **Inline (23):** `text`, `softbreak`, `linebreak`, `emph`, `strong`, `strikethrough`, `underline`, `highlight`, `superscript`, `subscript`, `spoilered_text`, `code`, `link`, `image`, `footnote_reference`, `shortcode`, `math`, `html_inline`, `heex_inline`, `raw`, `escaped`, `escaped_tag`, `wikilink`
 
 All node types are exported as individual TypeScript interfaces, plus the `AstNode` discriminated union.
-
-## Build
-
-```bash
-bun install
-bun run build   # outputs dist/ with ESM, CJS, and .d.ts
-bun test        # runs vitest
-```
 
 ## License
 
