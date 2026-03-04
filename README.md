@@ -1,4 +1,4 @@
-# flatmarkdown-ast-renderer
+# flatmarkdown-ast2html
 
 Renders a [flatmarkdown](https://github.com/sosuisen/flatmarkdown) JSON AST to HTML in TypeScript.
 
@@ -7,15 +7,15 @@ The `flatmarkdown` Rust crate exposes `markdown_to_ast()` which converts Markdow
 ## Install
 
 ```bash
-bun add flatmarkdown-ast-renderer
+bun add flatmarkdown-ast2html
 # or
-npm install flatmarkdown-ast-renderer
+npm install flatmarkdown-ast2html
 ```
 
 ## Quick Start
 
 ```ts
-import { renderToHtml } from 'flatmarkdown-ast-renderer';
+import { renderToHtml } from 'flatmarkdown-ast2html';
 
 // From a parsed AST object
 const ast = {

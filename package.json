@@ -1,11 +1,11 @@
 {
     "name": "flatmarkdown-ast2html",
-  "version": "0.1.0",
+    "version": "0.1.0",
     "description": "A library to convert FlatMarkdown AST to HTML.",
-  "type": "module",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+    "type": "module",
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
     "files": [
         "dist"
     ],
@@ -17,20 +17,33 @@
         "url": "https://github.com/petajournal/flatmarkdown-ast2html/issues"
     },
     "homepage": "https://github.com/petajournal/flatmarkdown-ast2html#readme",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.cjs"
+        }
+    },
+    "scripts": {
+        "build": "tsup",
+        "test": "vitest run",
+        "prepublishOnly": "npm run build"
+    },
+    "keywords": [
+        "flatmarkdown",
+        "ast",
+        "html",
+        "markdown",
+        "parser"
+    ],
+    "author": "Hidekazu Kubota",
+    "license": "MIT",
+    "dependencies": {
+        "flatmarkdown-ast": "^0.1.0"
+    },
+    "devDependencies": {
+        "tsup": "^8.0.0",
+        "vitest": "^3.0.0",
+        "typescript": "^5.0.0"
     }
-  },
-  "scripts": {
-    "build": "tsup",
-    "test": "vitest run"
-  },
-  "devDependencies": {
-    "tsup": "^8.0.0",
-    "vitest": "^3.0.0",
-    "typescript": "^5.0.0"
-  }
 }
