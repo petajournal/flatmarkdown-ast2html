@@ -1,10 +1,22 @@
 {
-  "name": "flatmarkdown-ast-renderer",
+    "name": "flatmarkdown-ast2html",
   "version": "0.1.0",
+    "description": "A library to convert FlatMarkdown AST to HTML.",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+    "files": [
+        "dist"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/petajournal/flatmarkdown-ast2html.git"
+    },
+    "bugs": {
+        "url": "https://github.com/petajournal/flatmarkdown-ast2html/issues"
+    },
+    "homepage": "https://github.com/petajournal/flatmarkdown-ast2html#readme",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
