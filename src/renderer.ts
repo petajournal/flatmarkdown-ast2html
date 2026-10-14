@@ -121,7 +121,7 @@ function renderNode(node: AstNode, ctx: RenderContext): string {
 
     case 'footnote_definition': {
       const name = escapeHtml(node.name);
-      return `<div class="footnote" id="fn-${name}">\n<span class="footnote-label">[${name}]:</span>\n${renderChildren(node, ctx)}<a href="#fnref-${name}" class="footnote-backref">↩</a>\n</div>\n`;
+      return `<div class="footnote" id="fn-${name}">\n<a href="#fnref-${name}" class="footnote-label">[${name}]:</a>\n${renderChildren(node, ctx)}</div>\n`;
     }
 
     case 'description_list':

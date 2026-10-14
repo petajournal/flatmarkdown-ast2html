@@ -526,9 +526,8 @@ describe('footnotes', () => {
     });
     const html = renderToHtml(ast);
     expect(html).toContain('id="fn-note1"');
-    expect(html).toContain('<span class="footnote-label">[note1]:</span>');
+    expect(html).toContain('<a href="#fnref-note1" class="footnote-label">[note1]:</a>');
     expect(html).toContain('Footnote content');
-    expect(html).toContain('<a href="#fnref-note1" class="footnote-backref">↩</a>');
   });
 });
 
