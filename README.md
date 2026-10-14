@@ -166,7 +166,7 @@ renderToHtml(ast, {
 | `table_cell` | `<td>…</td>` or `<th>…</th>` (header row), with `align` attr |
 | `thematic_break` | `<hr />` |
 | `html_block` | Raw passthrough |
-| `footnote_definition` | `<div class="footnote" id="fn-{name}">…</div>` |
+| `footnote_definition` | `<div class="footnote" id="fn-{name}"><span class="footnote-label">[{name}]:</span>…<a href="#fnref-{name}" class="footnote-backref">↩</a></div>` |
 | `description_list` | `<dl>…</dl>` |
 | `description_term` | `<dt>…</dt>` |
 | `description_details` | `<dd>…</dd>` |
@@ -192,7 +192,7 @@ renderToHtml(ast, {
 | `link` | `<a href="{url}" title="{title}">…</a>` |
 | `image` | `<img src="{url}" alt="…" title="{title}" />` |
 | `wikilink` | `<a href="{url}" data-wikilink="true">…</a>` (configurable) |
-| `footnote_reference` | `<sup><a href="#fn-{name}">[{n}]</a></sup>` |
+| `footnote_reference` | `<sup id="fnref-{name}" class="footnote-ref"><a href="#fn-{name}">[{name}]</a></sup>` |
 | `shortcode` | Emoji character directly |
 | `math` (inline) | `<code class="math math-inline">…</code>` |
 | `math` (display) | `<pre><code class="math math-display">…</code></pre>` |

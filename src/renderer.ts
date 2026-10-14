@@ -119,8 +119,10 @@ function renderNode(node: AstNode, ctx: RenderContext): string {
     case 'html_block':
       return node.literal;
 
-    case 'footnote_definition':
-      return `<div class="footnote" id="fn-${escapeHtml(node.name)}">\n${renderChildren(node, ctx)}</div>\n`;
+    case 'footnote_definition': {
+      const name = escapeHtml(node.name);
+      return `<div class="footnote" id="fn-${name}">\n<span class="footnote-label">[${name}]:</span>\n${renderChildren(node, ctx)}<a href="#fnref-${name}" class="footnote-backref">↩</a>\n</div>\n`;
+    }
 
     case 'description_list':
       return `<dl>\n${renderChildren(node, ctx)}</dl>\n`;
@@ -210,8 +212,12 @@ function renderNode(node: AstNode, ctx: RenderContext): string {
       return `<${tagName} ${attrStr}>${renderChildren(node, ctx)}</${tagName}>`;
     }
 
-    case 'footnote_reference':
-      return `<sup><a href="#fn-${escapeHtml(node.name)}">[${node.ix + 1}]</a></sup>`;
+    // The label is shown instead of `ix`: an item body is parsed alone, so `ix`
+    // restarts at 1 in every item.
+    case 'footnote_reference': {
+      const name = escapeHtml(node.name);
+      return `<sup id="fnref-${name}" class="footnote-ref"><a href="#fn-${name}">[${name}]</a></sup>`;
+    }
 
     case 'shortcode':
       return node.emoji;

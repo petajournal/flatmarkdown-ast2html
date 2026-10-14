@@ -496,7 +496,9 @@ describe('footnotes', () => {
         { type: 'footnote_reference', name: 'note1', ref_num: 0, ix: 0 },
       ),
     );
-    expect(renderToHtml(ast)).toContain('<sup><a href="#fn-note1">[1]</a></sup>');
+    expect(renderToHtml(ast)).toContain(
+      '<sup id="fnref-note1" class="footnote-ref"><a href="#fn-note1">[note1]</a></sup>',
+    );
   });
 
   it('renders footnote definition', () => {
@@ -507,7 +509,9 @@ describe('footnotes', () => {
     });
     const html = renderToHtml(ast);
     expect(html).toContain('id="fn-note1"');
+    expect(html).toContain('<span class="footnote-label">[note1]:</span>');
     expect(html).toContain('Footnote content');
+    expect(html).toContain('<a href="#fnref-note1" class="footnote-backref">↩</a>');
   });
 });
 
