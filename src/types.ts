@@ -47,6 +47,7 @@ export type {
   EscapedNode,
   EscapedTagNode,
   WikilinkNode,
+  HashtagNode,
 } from 'flatmarkdown-ast';
 
 // ── Render Options (specific to ast2html) ──
@@ -62,6 +63,18 @@ export interface WikiLinkOptions {
   attrs?: Record<string, string>;
 }
 
+export interface HashtagOptions {
+  /** Tag name. Default: 'a'. Use 'Link' for React Router, etc. */
+  tagName?: string;
+  /** URL attribute name. Default: 'href'. Use 'to' for React Router, etc. */
+  urlAttr?: string;
+  /** Prefix prepended to the tag name to form the url. Default: '' */
+  urlPrefix?: string;
+  /** Extra attributes added to the tag. Default: { 'data-hashtag': 'true' } */
+  attrs?: Record<string, string>;
+}
+
 export interface RenderOptions {
   wikilink?: WikiLinkOptions;
+  hashtag?: HashtagOptions;
 }

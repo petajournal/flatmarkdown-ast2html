@@ -47,6 +47,8 @@ export type {
   EscapedNode,
   EscapedTagNode,
   WikilinkNode,
+  HashtagNode,
   WikiLinkOptions,
+  HashtagOptions,
   RenderOptions,
 } from './types';

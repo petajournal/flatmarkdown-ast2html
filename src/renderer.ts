@@ -212,6 +212,21 @@ function renderNode(node: AstNode, ctx: RenderContext): string {
       return `<${tagName} ${attrStr}>${renderChildren(node, ctx)}</${tagName}>`;
     }
 
+    case 'hashtag': {
+      const opts = ctx.options.hashtag;
+      const tagName = opts?.tagName ?? 'a';
+      const urlAttr = opts?.urlAttr ?? 'href';
+      const urlPrefix = opts?.urlPrefix ?? '';
+      const extraAttrs = opts?.attrs ?? { 'data-hashtag': 'true' };
+
+      const url = `${urlPrefix}${node.value}`;
+      let attrStr = `${urlAttr}="${escapeHtml(url)}"`;
+      for (const [key, val] of Object.entries(extraAttrs)) {
+        attrStr += ` ${key}="${escapeHtml(val)}"`;
+      }
+      return `<${tagName} ${attrStr}>#${escapeHtml(node.value)}</${tagName}>`;
+    }
+
     // The label is shown instead of `ix`: an item body is parsed alone, so `ix`
     // restarts at 1 in every item.
     case 'footnote_reference': {

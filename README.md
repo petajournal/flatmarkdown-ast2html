@@ -85,6 +85,7 @@ Returns an HTML string.
 ```ts
 interface RenderOptions {
   wikilink?: WikiLinkOptions;
+  hashtag?: HashtagOptions;
 }
 ```
 
@@ -145,6 +146,14 @@ renderToHtml(ast, {
 <a href="/docs/page-name" data-wikilink="true">label</a>
 ```
 
+### `HashtagOptions`
+
+Customize how `#hashtag` nodes are rendered. The fields are the same as `WikiLinkOptions`. The url is `urlPrefix` followed by the tag name, and the default extra attribute is `{ 'data-hashtag': 'true' }`.
+
+```html
+<a href="todo" data-hashtag="true">#todo</a>
+```
+
 ## HTML Output Reference
 
 ### Block Nodes
@@ -191,6 +200,7 @@ renderToHtml(ast, {
 | `code` | `<code>…</code>` |
 | `link` | `<a href="{url}" title="{title}">…</a>` |
 | `image` | `<img src="{url}" alt="…" title="{title}" />` |
+| `hashtag` | `<a href="{name}" data-hashtag="true">#{name}</a>` |
 | `wikilink` | `<a href="{url}" data-wikilink="true">…</a>` (configurable) |
 | `footnote_reference` | `<sup id="fnref-{name}" class="footnote-ref"><a href="#fn-{name}">[{name}]</a></sup>` |
 | `shortcode` | Emoji character directly |
@@ -206,7 +216,7 @@ renderToHtml(ast, {
 
 **Block (23):** `document`, `paragraph`, `heading`, `code_block`, `block_quote`, `multiline_block_quote`, `list`, `item`, `task_item`, `table`, `table_row`, `table_cell`, `thematic_break`, `html_block`, `footnote_definition`, `description_list`, `description_item`, `description_term`, `description_details`, `alert`, `front_matter`, `heex_block`, `subtext`
 
-**Inline (23):** `text`, `softbreak`, `linebreak`, `emph`, `strong`, `strikethrough`, `underline`, `highlight`, `superscript`, `subscript`, `spoilered_text`, `code`, `link`, `image`, `footnote_reference`, `shortcode`, `math`, `html_inline`, `heex_inline`, `raw`, `escaped`, `escaped_tag`, `wikilink`
+**Inline (24):** `text`, `softbreak`, `linebreak`, `emph`, `strong`, `strikethrough`, `underline`, `highlight`, `superscript`, `subscript`, `spoilered_text`, `code`, `link`, `image`, `footnote_reference`, `shortcode`, `math`, `html_inline`, `heex_inline`, `raw`, `escaped`, `escaped_tag`, `wikilink`, `hashtag`
 
 All node types are exported as individual TypeScript interfaces, plus the `AstNode` discriminated union.
 

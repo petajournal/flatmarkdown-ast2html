@@ -486,6 +486,23 @@ describe('block quotes', () => {
   });
 });
 
+// ── Hashtags ──
+
+describe('hashtags', () => {
+  it('renders default hashtag', () => {
+    const ast = doc(para({ type: 'hashtag', value: 'todo' }));
+    expect(renderToHtml(ast)).toBe('<p><a href="todo" data-hashtag="true">#todo</a></p>\n');
+  });
+
+  it('renders hashtag with custom options', () => {
+    const ast = doc(para({ type: 'hashtag', value: 'todo' }));
+    const html = renderToHtml(ast, {
+      hashtag: { tagName: 'Link', urlAttr: 'to', urlPrefix: '/pages/', attrs: { className: 'tag' } },
+    });
+    expect(html).toBe('<p><Link to="/pages/todo" className="tag">#todo</Link></p>\n');
+  });
+});
+
 // ── Footnotes ──
 
 describe('footnotes', () => {
