@@ -121,7 +121,16 @@ function renderNode(node: AstNode, ctx: RenderContext): string {
 
     case 'footnote_definition': {
       const name = escapeHtml(node.name);
-      return `<div class="footnote" id="fn-${name}">\n<a href="#fnref-${name}" class="footnote-label">[${name}]:</a>\n${renderChildren(node, ctx)}</div>\n`;
+      const label = `<a href="#fnref-${name}" class="footnote-label">[${name}]:</a>`;
+      // The label goes inside the first paragraph so that the body continues on the
+      // same line without any CSS. A definition that starts with another block keeps
+      // the label in front of it.
+      const [first, ...rest] = node.children ?? [];
+      const body =
+        first?.type === 'paragraph'
+          ? `<p>${label} ${renderChildren(first, ctx)}</p>\n${rest.map(c => renderNode(c, ctx)).join('')}`
+          : `${label}\n${renderChildren(node, ctx)}`;
+      return `<div class="footnote" id="fn-${name}">\n${body}</div>\n`;
     }
 
     case 'description_list':

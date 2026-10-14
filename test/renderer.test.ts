@@ -526,8 +526,19 @@ describe('footnotes', () => {
     });
     const html = renderToHtml(ast);
     expect(html).toContain('id="fn-note1"');
-    expect(html).toContain('<a href="#fnref-note1" class="footnote-label">[note1]:</a>');
-    expect(html).toContain('Footnote content');
+    expect(html).toContain(
+      '<p><a href="#fnref-note1" class="footnote-label">[note1]:</a> Footnote content</p>',
+    );
+  });
+
+  it('keeps the label in front when the definition starts with another block', () => {
+    const ast = doc({
+      type: 'footnote_definition',
+      name: 'note1',
+      children: [{ type: 'code_block', literal: 'x', info: '', fenced: true, fence_char: '`', fence_length: 3, fence_offset: 0 } as any],
+    });
+    const html = renderToHtml(ast);
+    expect(html).toContain('<a href="#fnref-note1" class="footnote-label">[note1]:</a>\n<pre>');
   });
 });
 

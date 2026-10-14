@@ -175,7 +175,7 @@ Customize how `#hashtag` nodes are rendered. The fields are the same as `WikiLin
 | `table_cell` | `<td>…</td>` or `<th>…</th>` (header row), with `align` attr |
 | `thematic_break` | `<hr />` |
 | `html_block` | Raw passthrough |
-| `footnote_definition` | `<div class="footnote" id="fn-{name}"><a href="#fnref-{name}" class="footnote-label">[{name}]:</a>…</div>` |
+| `footnote_definition` | `<div class="footnote" id="fn-{name}"><p><a href="#fnref-{name}" class="footnote-label">[{name}]:</a> …</p></div>` (the label stays in front of the body when the definition does not start with a paragraph) |
 | `description_list` | `<dl>…</dl>` |
 | `description_term` | `<dt>…</dt>` |
 | `description_details` | `<dd>…</dd>` |
