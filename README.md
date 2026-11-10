@@ -1,5 +1,18 @@
 # flatmarkdown-ast2html
 
+> **This repository is archived.**
+> It holds the TypeScript source of the versions 0.1.x of the npm package `flatmarkdown-ast2html`.
+>
+> From version 0.6.0, the npm package is built from the Rust crate of the same name, as WebAssembly.
+> Its source is the folder [flatmarkdown-ast2html-wasm](https://github.com/petajournal/flatmarkdown/tree/main/flatmarkdown-ast2html-wasm) of the [flatmarkdown](https://github.com/petajournal/flatmarkdown) repository.
+> Report problems there.
+>
+> Version 0.6.0 has breaking changes.
+> The options of `renderToHtml`, the ES module build, the CommonJS build, and the TypeScript types are removed.
+> See [Changes from 0.1](https://github.com/petajournal/flatmarkdown/tree/main/flatmarkdown-ast2html-wasm#changes-from-01).
+>
+> The text below describes the versions 0.1.x.
+
 Renders a [flatmarkdown](https://github.com/sosuisen/flatmarkdown) JSON AST to HTML in TypeScript.
 
 The `flatmarkdown` Rust crate exposes `markdown_to_ast()` which converts Markdown into a JSON AST. This library takes that AST and produces HTML — no Rust toolchain needed at render time.
