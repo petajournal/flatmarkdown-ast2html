@@ -5,6 +5,9 @@ interface RenderContext {
   inHeaderRow: boolean;
   tableAlignments: string[];
   cellIndex: number;
+  // true inside a tight list; an item then drops <p> around its own paragraphs
+  inTightList: boolean;
+  // true only for a paragraph that is a direct child of an item in a tight list
   tightList: boolean;
 }
 
@@ -14,6 +17,7 @@ function defaultContext(options: RenderOptions = {}): RenderContext {
     inHeaderRow: false,
     tableAlignments: [],
     cellIndex: 0,
+    inTightList: false,
     tightList: false,
   };
 }
@@ -29,6 +33,15 @@ function escapeHtml(str: string): string {
 function renderChildren(node: { children?: AstNode[] }, ctx: RenderContext): string {
   if (!node.children) return '';
   return node.children.map((child) => renderNode(child, ctx)).join('');
+}
+
+// Renders the children of a list item. Only a paragraph that is a direct child
+// loses its <p>; a paragraph deeper (in a block quote, for example) keeps it.
+function renderItemChildren(node: { children?: AstNode[] }, ctx: RenderContext, tight: boolean): string {
+  if (!node.children) return '';
+  return node.children
+    .map((child) => renderNode(child, { ...ctx, tightList: tight && child.type === 'paragraph' }))
+    .join('');
 }
 
 function extractText(node: AstNode): string {
@@ -70,7 +83,7 @@ function renderNode(node: AstNode, ctx: RenderContext): string {
       return `<blockquote>\n${renderChildren(node, ctx)}</blockquote>\n`;
 
     case 'list': {
-      const childCtx: RenderContext = { ...ctx, tightList: node.tight };
+      const childCtx: RenderContext = { ...ctx, inTightList: node.tight };
       if (node.list_type === 'ordered') {
         const startAttr = node.start != null && node.start !== 1 ? ` start="${node.start}"` : '';
         return `<ol${startAttr}>\n${renderChildren(node, childCtx)}</ol>\n`;
@@ -79,12 +92,11 @@ function renderNode(node: AstNode, ctx: RenderContext): string {
     }
 
     case 'item':
-      return `<li>${renderChildren(node, ctx)}</li>\n`;
+      return `<li>${renderItemChildren(node, ctx, ctx.inTightList)}</li>\n`;
 
     case 'task_item': {
       const checked = node.symbol != null ? ' checked=""' : '';
-      const childCtx: RenderContext = { ...ctx, tightList: true };
-      return `<li><input type="checkbox"${checked} disabled="" />${renderChildren(node, childCtx)}</li>\n`;
+      return `<li><input type="checkbox"${checked} disabled="" />${renderItemChildren(node, ctx, true)}</li>\n`;
     }
 
     case 'table': {
