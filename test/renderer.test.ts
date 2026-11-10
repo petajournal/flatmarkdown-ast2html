@@ -366,6 +366,29 @@ describe('lists', () => {
     });
     expect(renderToHtml(ast)).toBe('<ul>\n<li>one\n</li>\n</ul>\n');
   });
+
+  // tightが外すのは、itemの直下の段落の<p>だけ。引用の中の段落は<p>を保つ
+  it('keeps <p> for a paragraph inside a block quote in a tight item', () => {
+    const ast = doc({
+      type: 'list',
+      list_type: 'bullet',
+      start: null,
+      tight: true,
+      delimiter: 'period',
+      children: [
+        {
+          type: 'item',
+          list_type: 'bullet',
+          start: 1,
+          tight: false,
+          children: [para(text('one')), { type: 'block_quote', children: [para(text('quoted'))] }],
+        },
+      ],
+    });
+    expect(renderToHtml(ast)).toBe(
+      '<ul>\n<li>one\n<blockquote>\n<p>quoted</p>\n</blockquote>\n</li>\n</ul>\n',
+    );
+  });
 });
 
 // ── Task Lists ──
