@@ -351,6 +351,21 @@ describe('lists', () => {
     const html = renderToHtml(ast);
     expect(html).toBe('<ul>\n<li><p>one</p>\n</li>\n<li><p>two</p>\n</li>\n</ul>\n');
   });
+
+  // tightはlistが持つ。itemのtightは読まない（パーサーはitemのtightを常にfalseにする）
+  it('reads tight from the list, not from the item', () => {
+    const ast = doc({
+      type: 'list',
+      list_type: 'bullet',
+      start: null,
+      tight: true,
+      delimiter: 'period',
+      children: [
+        { type: 'item', list_type: 'bullet', start: 1, tight: false, children: [para(text('one'))] },
+      ],
+    });
+    expect(renderToHtml(ast)).toBe('<ul>\n<li>one\n</li>\n</ul>\n');
+  });
 });
 
 // ── Task Lists ──
