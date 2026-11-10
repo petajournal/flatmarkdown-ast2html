@@ -70,17 +70,16 @@ function renderNode(node: AstNode, ctx: RenderContext): string {
       return `<blockquote>\n${renderChildren(node, ctx)}</blockquote>\n`;
 
     case 'list': {
+      const childCtx: RenderContext = { ...ctx, tightList: node.tight };
       if (node.list_type === 'ordered') {
         const startAttr = node.start != null && node.start !== 1 ? ` start="${node.start}"` : '';
-        return `<ol${startAttr}>\n${renderChildren(node, ctx)}</ol>\n`;
+        return `<ol${startAttr}>\n${renderChildren(node, childCtx)}</ol>\n`;
       }
-      return `<ul>\n${renderChildren(node, ctx)}</ul>\n`;
+      return `<ul>\n${renderChildren(node, childCtx)}</ul>\n`;
     }
 
-    case 'item': {
-      const childCtx: RenderContext = { ...ctx, tightList: node.tight };
-      return `<li>${renderChildren(node, childCtx)}</li>\n`;
-    }
+    case 'item':
+      return `<li>${renderChildren(node, ctx)}</li>\n`;
 
     case 'task_item': {
       const checked = node.symbol != null ? ' checked=""' : '';
